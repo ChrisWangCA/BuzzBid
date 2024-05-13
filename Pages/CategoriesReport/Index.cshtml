@@ -1,0 +1,42 @@
+﻿@page
+@model BuzzBid.Pages.Categories.IndexModel
+
+@{
+	ViewData["Title"] = "Categories Report";
+}
+<table class="table table-bordered table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>
+					Category
+				</th>
+				<th>
+					Total Items
+				</th>
+				<th>
+					Min Price
+					</th>
+				<th>
+					Max Price
+				</th>
+				<th>
+					Average Price
+				</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			@for (var i = 0; i < Model.categories.Count; i++)
+			{
+				<tr>
+					<td width="30%">@Model.categories[i].Description</td>
+					<td width="15%">@Model.totals[i]</td>
+					<td width="15%">@Model.minMums[i]</td>
+					<td width="15%">@Model.maxMums[i]</td>
+					<td width="15%">@Model.averages[i]</td>
+					
+				</tr>
+			}
+			
+		</tbody>
+	</table>

@@ -1,0 +1,70 @@
+﻿@page
+@model SearchItemsModel
+
+@{
+    ViewData["Title"] = "Search Items";
+}
+<h1>Item Search</h1>
+<form method="get" action="SearchItemsResult">
+    <div>
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label for="keyword">Keyword:</label></td>
+                    <td><input type="text" name="keyword" id="keyword"></td>
+                </tr>
+                <tr>
+                    <td><label for="category">Category:</label></td>
+                    <td><select name="category" id="category">
+                            @foreach (var c in Model.GetCategories())
+                            {
+                                <option value=@c.CategoryId>@c.Description</option>
+                            }
+                        </select></td>
+                </tr>
+                <tr>
+                    <td><label for="minp">Minimum Price $:</label></td>
+                    <td><input type="text" name="minp" id="minp" class="input_text_money"></td>
+                </tr>
+                <tr>
+                    <td><label for="maxp">Maximum Price $:</label> </td>
+                    <td><input type="text" name="maxp" id="maxp" class="input_text_money"></td>
+                </tr>
+                <tr>
+                    <td><label for="condition">Condition at least:</label> </td>
+                    <td>
+                        <select name="condition" id="condition">
+                            <option value="5">New</option>
+                            <option value="4">Very Good</option>
+                            <option value="3">Good</option>
+                            <option value="2">Fair</option>
+                            <option value="1">Poor</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        <a href="/MainMenu" class="btn btn-secondary" style="width:150px;">Cancel</a>
+        <button type="submit" class="btn btn-secondary" style="width:150px id=" btn_search">Search</button>
+    </div>
+</form>
+<script>
+$(document).ready(function(){
+    $('.input_text_money').on('input', function() {
+        // Get the input value
+        var inputValue = $(this).val();
+        
+        // Remove non-numeric characters except decimal point
+        inputValue = inputValue.replace(/[^0-9.]/g, '');
+        
+        // Update the input value
+        $(this).val(inputValue);
+    });
+});
+</script>
+

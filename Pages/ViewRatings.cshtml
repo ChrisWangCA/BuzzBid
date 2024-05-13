@@ -1,0 +1,133 @@
+@page
+@model ViewRatingsModel
+
+@{
+    ViewData["Title"] = "View Ratings";
+}
+<h1>View Ratings</h1>
+<div>
+    <table>
+        <tbody>
+
+</tr>
+            
+            <tr>
+                <td>Item ID</td>
+                <td>@Model.Item.ItemId</td>
+            </tr>
+            <tr>
+                <td>Item Name</td>
+                <td>@Model.Item.ItemName</td>
+            </tr>
+            <tr>
+                <td>Average Rating</td>
+                @for (var i = 0; i < Model.RateItems.Count; i++)
+		{
+			
+                @if (@Model.RateItems[i].ItemName == @Model.Item.ItemName)
+                {
+                    <td>@Model.RateItems[i].AveStars stars</td>
+                }
+        
+		}
+            </tr>
+            
+           
+          
+            <!--<tr>
+                @if ((Model.Item.Stars != null && Model.IsAdmin) || (Model.Item.Stars != null && Model.Item.Winner == Model.UserName))
+                {
+                    <td><a href="./DeleteComments?itemId=@Model.Item.ItemId" class=""> Delete </a></td>
+                }
+            <tr>-->
+    @{
+        int count = 0;
+        foreach (var comment in Model.RatingTexts)
+        {
+            
+            
+            if (comment.ItemName == Model.Item.ItemName && count < 2)
+            {
+                <tr>
+                    @if ((Model.IsAdmin) || (comment.RatedBy == Model.UserName))
+                    {
+                        <td><a href="./DeleteComments?itemId=@comment.ItemId" class=""> Delete </a></td>
+                    }
+                </tr>
+                
+            
+                <tr>
+        
+            
+                    <td> Rated by:</td>
+                    <td>@comment.RatedBy</td>
+                </tr>
+                <tr>
+                    <td> Rating: </td>
+                    <td>@for (int i = 1; i <= 5; i++)
+        {
+            if (i <= @comment.Stars)
+            {
+                <span style="color: yellow;">★</span> <!-- Yellow star -->
+            }
+            else
+            {
+                <span style="color: grey;">☆</span> <!-- Grey star -->
+            }
+        }</td>
+                    
+                </tr>
+                <tr>
+                    <td>Date:</td>
+                    <td>@comment.RatedTime</td>
+                </tr>
+                <tr>
+                    <td>Comment:</td>
+                    <td>@comment.CommentsText</td>
+                </tr>
+
+                count++;
+            }
+        }
+    }
+            </tr>
+            <tr>
+                @if (Model.Item.Winner == Model.UserName)
+                {
+                    <td><a href="./WriteComments?itemId=@Model.Item.ItemId" class="">Write Review</a></td>
+                }
+                
+            </tr>
+
+
+        </tbody>
+        
+    </table>
+   
+</div>
+<div>
+    <a href="ItemResult" class="ItemDesc"> Close</a>
+</div>
+<script>
+    $(document).ready(function () {
+        $("a.ItemDesc").click(function (event) {
+            // Prevent the default behavior of the anchor tag
+            event.preventDefault();
+
+            // Get the current href value
+            var currentHref = $(this).attr("href");
+
+            // Use the ItemId from the model
+            var itemId = "@Model.Item.ItemId";
+
+            // Check if the URL already has query parameters
+            var separator = currentHref.includes('?') ? '&' : '?';
+            
+            // Append the parameter
+            var newHref = currentHref + separator + "id=" + encodeURIComponent(itemId);
+
+            // Navigate to the new URL
+            window.location.href = newHref;
+        });  
+    });
+</script>

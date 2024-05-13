@@ -1,0 +1,49 @@
+﻿@page
+@model BuzzBid.Pages.UserReport.IndexModel
+@{
+	ViewData["Title"] = "User Report";
+}
+
+<table class="table table-bordered table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>
+				<table class="table table-bordered table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>
+					Username
+				</th>
+				<th>
+					Listed
+				</th>
+				<th>
+					Sold
+					</th>
+				<th>
+					Won
+				</th>
+				<th>
+					Rated
+				</th>
+				<th>
+					Most Frequent Condition
+				</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			@for (var i = 0; i < Model.UserReports.Count; i++)
+			{
+				<tr>
+					<td width="20%">@Model.UserReports[i].userName</td>
+					<td width="15%">@Model.UserReports[i].listedNum</td>
+					<td width="15%">@Model.UserReports[i].soldNum</td>
+					<td width="15%">@Model.UserReports[i].wonNum</td>
+					<td width="15%">@Model.UserReports[i].ratedNum</td>
+					<td width="20%">@Model.UserReports[i].mostFreqCondition</td>
+				</tr>
+			}
+			
+		</tbody>
+</table>

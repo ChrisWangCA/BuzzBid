@@ -1,0 +1,22 @@
+@page
+@model EditDescriptionModel
+
+
+
+<h1>Edit Item Description</h1>
+
+
+
+<form method="post">
+    <input type="hidden" name="itemId" value="@Model.ItemId" />
+
+    <div class="form-group">
+        <label for="description" class="control-label">Description</label>
+        <textarea id="description" name="description" class="form-control">@Model.Description</textarea>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Update Description" class="btn btn-primary" />
+        <a class="btn btn-secondary" href="./ItemForSale?id=@Model.ItemId">Cancel</a>
+    </div>
+</form>

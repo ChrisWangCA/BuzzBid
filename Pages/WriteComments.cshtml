@@ -1,0 +1,43 @@
+
+@page
+@model BuzzBid.Pages.WriteCommentsModel
+@{
+    ViewData["Title"] = "Write Review";
+}
+<h1>Write Review</h1>
+<form method="post">
+    <div>
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <label>My rating</label>
+                        <select asp-for="getStars" class="form-control">
+                            <option value=0>0 Star</option>
+                            <option value=1>1 Star</option>
+                            <option value=2>2 Star</option>
+                            <option value=3>3 Star</option>
+                            <option value=4>4 Star</option>
+                            <option value=5>5 Star</option>
+                        </select>
+                    
+                </tr>
+                <tr>
+                    
+                    <label>Comments</label>
+                    <input asp-for="comments" class="form-control" />
+                    <span asp-validation-for="comments" class="text-danger"></span>
+                </div>
+                </tr>
+
+                
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        <input type="button" value="Cancel">
+        <button type="submit" id="btn_search">Rate This Item</button>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+﻿@page
+@model BuzzBid.Pages.Main_MenuModel
+@{
+    ViewData["Title"] = "BuzzBid Main Menu";
+}
+<form method ="get">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Auction Options</h3>
+            <div class="list-group">
+                <a href="/SearchItems" class="list-group-item list-group-item-action">Search for Items</a>
+                <a href="/ListItem" class="list-group-item list-group-item-action">List Items</a>
+                <a href="/AuctionResult" class="list-group-item list-group-item-action">View Auction Results</a>
+            </div>
+        </div>
+        @if (Model.IsAdmin)
+        {
+            <div class="col-md-6">
+                <h3>Reports</h3>
+                <div class="list-group">
+                    <a href="/CategoriesReport/Index" class="list-group-item list-group-item-action">Category Report</a>
+                    <a href="/UserReport/Index" class="list-group-item list-group-item-action">User Report</a>
+                    <a href="RatedItemReport/Index" class="list-group-item list-group-item-action">Top Rated Items</a>
+                    <a href="AuctionStatisticsReport/Index" class="list-group-item list-group-item-action">Auction Statistics</a>
+                    <a href="CancelledAuctionsReport/Index" class="list-group-item list-group-item-action">Cancelled Auction Details</a>
+                </div>
+            </div>
+           
+        }
+    </div>
+</form>

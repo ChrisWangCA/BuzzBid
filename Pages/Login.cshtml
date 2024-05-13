@@ -1,0 +1,31 @@
+﻿@page
+@model BuzzBid.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<form asp-action="Login" method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">BuzzBid Login</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="InputUserName"></label>
+            <input asp-for="InputUserName" class="form-control" />
+            <span asp-validation-for="InputUserName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="InputPassword"></label>
+            <input type="password" asp-for="InputPassword" class="form-control" />
+            <span asp-validation-for="InputPassword" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <a asp-page="Register" class="btn btn-primary" style="width:150px;">
+                Register
+            </a>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Login</button>
+    </div>
+</form>
+

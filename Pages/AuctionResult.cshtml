@@ -1,0 +1,51 @@
+﻿@page
+@model AuctionResultModel
+@{
+    ViewData["Title"] = "Auction Result";
+}
+<h1>Auction Results</h1>
+<div>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Item Name</th>
+            <th>Sale Price</th>
+            <th>Winner</th>
+            <th>Auction Ends</th>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.AuctionResults)
+            {
+                <tr>
+                    <td>@r.ItemId</td>
+                    <td><a href="ItemResult" class="ItemResult">@r.ItemName</a></td>
+                    <td>@r.SalePrice</td>
+                    <td>@r.Winner</td>
+                    <td>@r.AuctionEnds</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $("a.ItemResult").click(function (event) {
+            // Prevent the default behavior of the anchor tag
+            event.preventDefault();
+
+            // Get the current href value
+            var currentHref = $(this).attr("href");
+
+            var leftTdText = $(this).closest("tr").find("td:first").text();
+
+            // Append the parameter
+            var newHref = currentHref + "?id=" + encodeURIComponent(leftTdText);
+
+            // Set the new href value
+            $(this).attr("href", newHref);
+
+            // Navigate to the new URL
+            window.location.href = newHref;
+        });  
+    });       
+</script>

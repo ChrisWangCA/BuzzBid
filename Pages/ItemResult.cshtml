@@ -1,0 +1,125 @@
+﻿@page
+@model ItemResultModel
+@{
+    ViewData["Title"] = "Item Result";
+}
+<h1>Item Results</h1>
+<a href="ViewRatings" class="ItemDesc" data-itemid="@Model.Item.ItemId">View Ratings</a>
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <td>Item ID</td>
+                <td>@Model.Item.ItemId</td>
+            </tr>
+            <tr>
+                <td>Item Name</td>
+                <td>@Model.Item.ItemName</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>@Model.Item.Description</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>@Model.Item.Category</td>
+            </tr>
+            <tr>
+                <td>Condition</td>
+                <td>@Model.Item.Condition</td>
+            </tr>
+            <tr>
+                <td>Returns Accepted</td>
+                <td>
+                    @if (Model.Item.ReturnsAccepted == "True")
+                    {
+                        <input type="checkbox" onclick="return false;" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" onclick="return false;">
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Get It Now price</td>
+                <td>@Model.Item.GetItNowPrice</td>
+            </tr>
+            <tr>
+                <td>Auction Ends</td>
+                <td>@Model.Item.AuctionEnds</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <div>
+        <input type="hidden" id="itemStatus" value="@Model.Item.Status">
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        <b>Bid Amount</b>
+
+                    </td>
+                    <td>
+                        <b>Time of Bid</b>
+
+                    </td>
+                    <td><b>Username</b>
+
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="biddings">
+                @foreach (var b in @Model.Biddings)
+                {
+                    <tr>
+                        <td>@b.BidAmount</td>
+                        <td>@b.BidTime</td>
+                        <td>@b.BidBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <a href="/AuctionResult">Go back</a>
+</div>
+<script>
+    $(document).ready(function () {
+        var status = $('#itemStatus').val();
+        var firstTR = $('#biddings').find('tr:first');
+
+        switch(status) {
+            case "WINNER":
+                firstTR.css("backgroundColor","green");
+                break;
+            case "CANCEL":
+                firstTR.css("backgroundColor","red");
+                break;
+            default:
+                firstTR.css("backgroundColor","yellow");
+        }   
+    });
+</script>
+<script>
+$(document).ready(function () {
+    $("a.ItemDesc").click(function (event) {
+        // Prevent the default behavior of the anchor tag
+        event.preventDefault();
+
+        // Get the item ID from the data attribute
+        var itemId = $(this).data("itemid");
+
+        // Original href value
+        var currentHref = $(this).attr("href");
+
+        // Append the item ID as a query parameter
+        var newHref = currentHref + "?id=" + encodeURIComponent(itemId);
+
+        // Set the new href value and navigate to the new URL
+        window.location.href = newHref;
+    });
+});
+</script>

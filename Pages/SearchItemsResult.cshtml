@@ -1,0 +1,56 @@
+﻿@page
+@model SearchItemsResultModel
+@{
+    ViewData["Title"] = "Search Items Result";
+}
+<h1>Search Results</h1>
+<div>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Item Name</th>
+            <th>Current Bid</th>
+            <th>High Bidder</th>
+            <th>Get It Now Price</th>
+            <th>Auction Ends</th>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.SearchResult)
+            {
+                <tr>
+                    <td>@r.ItemId</td>
+                    <td><a href="ItemForSale" class="ItemForSale">@r.ItemName</a></td>
+                    <td>@r.CurrentBid</td>
+                    <td>@r.HighBidder</td>
+                    <td>@r.GetItNowPrice</td>
+                    <td>@r.AuctionEnds</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a href="SearchItems">Back to Search</a>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".ItemForSale").click(function (event) {
+            // Prevent the default behavior of the anchor tag
+            event.preventDefault();
+
+            // Get the current href value
+            var currentHref = $(this).attr("href");
+
+            var leftTdText = $(this).closest("tr").find("td:first").text();
+
+            // Append the parameter
+            var newHref = currentHref + "?id=" + encodeURIComponent(leftTdText);
+
+            // Set the new href value
+            $(this).attr("href", newHref);
+
+            // Navigate to the new URL
+            window.location.href = newHref;
+        });  
+    });       
+</script>

@@ -1,0 +1,17 @@
+﻿@page
+@model BuzzBid.Pages.LogoutModel
+@{
+    ViewData["Title"] = "Logout";
+}
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">BuzzBid Logout</h2>
+            <hr />
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form method="post" asp-page="/Logout">
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+        }
+    </div>

@@ -1,0 +1,46 @@
+﻿@page
+@model BuzzBid.Pages.AuctionStatisticsReport.IndexModel
+@{
+}
+<h2> Auction Statistics</h2>
+<table class="table table-bordered table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>
+				Auctions Active
+			</th>
+			<td width="10%">@Model.auctionStatisticsModel.AuctionActive</td>
+		</tr>
+		<tr>
+			<th>
+				Auction Finished
+			</th>
+			<td width="15%">@Model.auctionStatisticsModel.AuctionFinished</td>
+		</tr>
+		<tr>
+			<th>
+				Auction Won
+			</th>
+			<td width="15%">@Model.auctionStatisticsModel.AuctionWon</td>
+		</tr>
+		<tr>
+			<th>
+				Auction Cancelled
+			</th>
+			<td width="15%">@Model.auctionStatisticsModel.AuctionCancelled</td>
+		</tr>
+		<tr>
+			<th>
+				Auction Rated
+			</th>
+			<td width="15%">@Model.auctionStatisticsModel.AuctionRated</td>
+		</tr>
+		<tr>
+			<th>
+				Auction NotRated
+			</th>
+			<td width="15%">@Model.auctionStatisticsModel.AuctionNotRated</td>
+		</tr>
+	</thead>
+
+</table>

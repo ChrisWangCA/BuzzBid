@@ -1,0 +1,42 @@
+﻿@page
+@model BuzzBid.Pages.CancelledAuctionsReport.IndexModel
+@{
+	ViewData["Title"] = "Cancelled Auctions Report";
+}
+
+<table class="table table-bordered table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				Listed by
+			</th>
+			<th>
+				Cancelled Date
+			</th>
+			<th>
+				Reason
+			</th>
+
+
+		</tr>
+	</thead>
+	<tbody>
+			@for (var i = 0; i < Model.cancelledAuctionModel.Count; i++)
+			{
+			<tr>
+				<td width="10%">@Model.cancelledAuctionModel[i].ItemId</td>
+				<td width="25%">@Model.cancelledAuctionModel[i].ListBy</td>
+				<td width="25%">@Model.cancelledAuctionModel[i].cancelledDate</td>
+				<td width="40%">@Model.cancelledAuctionModel[i].cancelledReason</td>
+
+
+			</tr>
+			}
+			
+		
+
+	</tbody>
+</table>

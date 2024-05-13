@@ -1,0 +1,36 @@
+﻿@page
+@model BuzzBid.Pages.RatedItemReport.IndexModel
+
+@{
+	ViewData["Title"] = "Rated Item Report";
+}
+
+
+<table class="table table-bordered table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>
+				Item Name
+			</th>
+			<th>
+				Average Rating
+			</th>
+			<th>
+				Rating Count
+			</th>
+			
+
+		</tr>
+	</thead>
+	<tbody>
+		@for (var i = 0; i < Model.RateItems.Count; i++)
+		{
+			<tr>
+				<td width="40%">@Model.RateItems[i].ItemName</td>
+				<td width="30%">@Model.RateItems[i].AveStars</td>
+				<td width="30%">@Model.RateItems[i].totalStars</td>
+			</tr>
+		}
+
+	</tbody>
+</table>

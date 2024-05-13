@@ -1,0 +1,26 @@
+﻿@page
+@model UserPageModel
+@{
+    ViewData["Title"] = "User";
+}
+<h1>@ViewData["User"]</h1>
+<h1>User List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <!-- Add other properties as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.GetUsers())
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <!-- Add other properties as needed -->
+            </tr>
+        }
+    </tbody>
+</table>

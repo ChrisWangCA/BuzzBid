@@ -1,0 +1,130 @@
+@page
+@model ItemForSaleModel
+
+
+
+<h2>Item for Sale</h2>
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+
+
+@if (Model.Item != null)
+
+{
+    <div>
+        <p><strong>Item ID:</strong> @Model.Item.ItemId</p>
+        <a class="btn btn-info" asp-page="/ViewRatings" asp-route-Id="@Model.Item.ItemId">View Ratings</a>
+        <p><strong>Item Name:</strong> @Model.Item.ItemName</p>
+        <p><strong>Description:</strong> @Model.Item.Description</p>
+        <p><strong>Category:</strong> @Model.CategoryDescription</p>
+
+        <p><strong>Condition:</strong> @Model.Item.Condition</p>
+        <p>Returnable: @(Model.Item.Returnable ? "Yes" : "No")</p>
+
+        <p>
+            <strong>Return Accepted?:</strong>
+            <input type="checkbox" disabled @(Model.Item.Returnable ? "checked" : "") />
+        </p>
+        <p><strong>Get It Now Price: <span>$</span></strong> @Model.Item.GetItNowPrice</p>
+        <p><strong>Auction Ends:</strong> @Model.Item.ListDate</p>
+    </div>
+}
+else
+{
+    <p>Item not found.</p>
+}
+
+
+
+<div>
+    <h3>Bids</h3>
+    @if (Model.Bids != null)
+    {
+        foreach (var bid in Model.Bids)
+        {
+            <p>Bid Amount: @bid.BidAmount, Time of Bid: @bid.BidTime, Username: @bid.BidBy</p>
+        }
+    }
+    else
+    {
+        <p>No bids yet.</p>
+    }
+</div>
+
+
+<form method="post">
+    @if (Model.Item != null)
+    {
+        <input type="hidden" name="itemId" value="@Model.Item.ItemId" />
+        decimal currentMaxBid = Model.Bids.Any() ? Model.Bids.Max(b => b.BidAmount) : 0;
+        decimal minBid = (currentMaxBid > 0 && currentMaxBid + 1 > Model.Item.MinSalesPrice) ? currentMaxBid + 1 :
+        Model.Item.MinSalesPrice;
+        <div class="form-group">
+            <label>Your Bid: $</label>
+            <input type="number" name="bidAmount" class="form-control" />
+            <small class="form-text text-muted">Minimum bid must be $1 above $@minBid</small>
+        </div>
+    }
+    else
+    {
+        <p>Item not found.</p>
+    }
+
+    <button type="submit" asp-page-handler="Bid" class="btn btn-primary">Bid On This Item</button>
+</form>
+
+
+
+
+@{
+    var itemId = Model.Item?.ItemId;
+}
+
+@if (Model.Item != null)
+{
+
+
+    <form method="post" asp-page-handler="GetItNow">
+        <input type="hidden" name="itemId" value="@itemId" />
+        <button type="submit">Get It Now!</button>
+    </form>
+
+
+    @if (Model.Item.ListBy == Model.UserName || User.IsInRole("admin"))
+    {
+
+        <a class="btn btn-primary" href="./EditDescription?itemId=@Model.Item.ItemId">Edit Description</a>
+
+
+        <span asp-validation-for="Item.CancelReason" class="text-danger"></span>
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-warning">
+                @Model.Message
+            </div>
+        }
+
+
+        <form method="post" asp-page-handler="CancelItem">
+            <input type="hidden" name="itemId" value="@Model.Item.ItemId" />
+            <div>
+                <label for="cancelReason">Cancellation Reason:</label>
+                <input type="text" id="cancelReason" name="cancelReason" required />
+                <span asp-validation-for="Item.CancelReason" class="text-danger"></span>
+            </div>
+            <button type="submit">Cancel This Item</button>
+        </form>
+
+
+    }
+
+}

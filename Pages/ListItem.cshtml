@@ -1,0 +1,85 @@
+﻿@page
+@model BuzzBid.Pages.ListItemModel
+@{
+    ViewData["Title"] = "New Item For Auction";
+}
+<h1>List New Item For Auction</h1>
+<form method="post">
+    <div>
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input asp-for="inputItemName" class="form-control" />
+                    <span asp-validation-for="inputItemName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <input asp-for="inputDescription" class="form-control" />
+                    <span asp-validation-for="inputDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <td><label for="category">Category:</label></td>
+                    <td>
+                        <select asp-for="selectCategoryId" class="form-control">
+                            @foreach (var c in Model.GetCategories())
+                            {
+                                <option value=@c.CategoryId>@c.Description</option>
+                            }
+                        </select>
+                    </td>
+                </div>
+                <tr>
+                    <td><label for="condition">Condition at least:</label> </td>
+                    <td>
+                        <select asp-for="selectCondition" class="form-control">
+                            <option value="5">New</option>
+                            <option value="4">Very Good</option>
+                            <option value="3">Good</option>
+                            <option value="2">Fair</option>
+                            <option value="1">Poor</option>
+                        </select>
+                    </td>
+                </tr>
+                <div class="form-group">
+                    <label>Start Auction Bidding At $:</label>
+                    <input asp-for="startBidding" class="form-control" />
+                    <span asp-validation-for="startBidding" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Minimum sale price $:</label>
+                    <input asp-for="miniSalePrice" class="form-control" />
+                    <span asp-validation-for="miniSalePrice" class="text-danger"></span>
+                </div>
+                <tr>
+                    <td><label for="acutionEnds">Auction ends in:</label> </td>
+                    <td>
+                        <select asp-for="selectAuctionLength" class="form-control">
+                            <option value="7">7 days</option>
+                            <option value="5">5 days</option>
+                            <option value="3">3 days</option>
+                            <option value="1">1 day</option>
+                        </select>
+                    </td>
+                </tr>
+                <div class="form-group">
+                    <label>Get It Now price $:</label>
+                    <input asp-for="getitNow" class="form-control" />
+                    <span asp-validation-for="getitNow" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" asp-for="isItemReturnable" id="isItemReturnable" />
+                    <label for="isItemReturnable">Item is returnable</label>
+                </div>
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        <input type="button" value="Cancel">
+        <button type="submit" id="btn_search">List My Item</button>
+    </div>
+</form>
